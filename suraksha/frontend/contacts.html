@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trusted Contacts — Suraksha</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/contacts.css" />
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__back" aria-label="Back to home" title="Back to Home">←</a>
+      <a href="index.html" class="navbar__logo">
+        <div class="navbar__logo-icon">S</div>
+        Suraksha
+      </a>
+
+      <div class="navbar__links" id="navLinks">
+        <a href="report.html" class="navbar__link">Report</a>
+        <a href="track.html" class="navbar__link">Track</a>
+        <a href="evidence.html" class="navbar__link">Evidence</a>
+        <a href="map.html" class="navbar__link">Safety Map</a>
+        <a href="legal.html" class="navbar__link">Legal</a>
+        <a href="route.html" class="navbar__link">Safe Route</a>
+        <a href="contacts.html" class="navbar__link navbar__link--active">Contacts</a>
+        <a href="report.html" class="navbar__cta">File a Report</a>
+      </div>
+
+      <button class="navbar__hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="page-content">
+  <div class="container contacts-page">
+
+    <section class="page-header">
+      <h1>🧍 Trusted Contacts</h1>
+      <p class="subtitle">Add emergency contacts who receive alerts if you trigger an SOS. No account needed.</p>
+    </section>
+
+    <!-- ── Emergency Numbers — works 100% offline ── -->
+    <div class="card emergency-card">
+      <h2>🚨 Emergency Numbers</h2>
+      <p>These work with <strong>zero internet</strong> — one tap calls directly.</p>
+      <div class="emergency-grid">
+        <a href="tel:112"  class="btn-danger">📞 112 — Police / Emergency</a>
+        <a href="tel:1091" class="btn-danger">📞 1091 — Women Helpline</a>
+        <a href="tel:181"  class="btn-danger">📞 181 — Sakhi One Stop</a>
+        <a href="tel:1930" class="btn-danger">📞 1930 — Cyber Crime</a>
+      </div>
+    </div>
+
+    <!-- ── Offline SMS SOS — works without internet ── -->
+    <div class="card offline-sos-card">
+      <h2>📵 Offline SOS — No Internet Needed</h2>
+      <p>Opens your native SMS app with a pre-filled emergency message.
+        Works even with zero connectivity.</p>
+      <button class="btn-primary" onclick="sendOfflineSMS()">
+        📩 Send Emergency SMS (Offline)
+      </button>
+      <div id="offlineSMSStatus"></div>
+    </div>
+
+    <!-- ── Email SOS — requires internet ── -->
+    <div class="card email-sos-card">
+      <h2>📧 Email SOS — Instant Alert</h2>
+      <p>Sends an emergency email with your live location to all contacts that have an email address.
+        Requires internet. Your location is attached automatically.</p>
+      <button class="btn-primary" id="emailSOSBtn" onclick="sendManualEmailSOS()">
+        📧 Send Email SOS Now
+      </button>
+      <div id="emailSOSStatus"></div>
+    </div>
+
+    <!-- ── Add contact form ── -->
+    <div class="card">
+      <h2>Add a Contact</h2>
+      <div class="form-group">
+        <label class="form-label" for="contactName">Name</label>
+        <input id="contactName" type="text" class="form-input" placeholder="e.g. Mom" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contactPhone">Phone Number</label>
+        <input id="contactPhone" type="tel" class="form-input" placeholder="+91 XXXXXXXXXX" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contactEmail">
+          Email Address
+          <span style="font-weight:400; color: var(--clr-text-3); font-size: 0.85em;">(optional — for email SOS)</span>
+        </label>
+        <input id="contactEmail" type="email" class="form-input" placeholder="e.g. mom@gmail.com" />
+      </div>
+      <button class="btn-primary" onclick="addContact()">Save Contact</button>
+    </div>
+
+    <!-- ── Contacts list ── -->
+    <div class="card">
+      <h2>Your Contacts</h2>
+      <div id="contactsList">
+        <p class="empty-state">No contacts added yet.</p>
+      </div>
+    </div>
+
+    <!-- ── SOS / Live Location ── -->
+    <div class="card sos-card">
+      <h2>🚨 SOS — Auto Location Share</h2>
+      <p>Sends your live location to all trusted contacts every 5 minutes automatically
+        via WhatsApp (online), SMS (offline), <strong>and Email</strong> (if email is saved).</p>
+      <div id="locationStatus" class="hint">Location not active.</div>
+      <div class="sos-buttons">
+        <button class="btn-danger" id="sosBtn" onclick="startAutoSOS()">
+          🚨 Start SOS
+        </button>
+        <button class="btn-secondary" id="stopBtn" onclick="stopAutoSOS()" style="display:none;">
+          ⏹ Stop SOS
+        </button>
+      </div>
+    </div>
+
+  </div>
+  </main>
+
+  <script src="js/app.js"></script>
+  <script src="js/contacts.js"></script>
+
+</body>
+
+</html>

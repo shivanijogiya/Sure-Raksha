@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Safe Route — Suraksha</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/route.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__back" aria-label="Back to home" title="Back to Home">←</a>
+      <a href="index.html" class="navbar__logo">
+        <div class="navbar__logo-icon">S</div>
+        Suraksha
+      </a>
+
+      <div class="navbar__links" id="navLinks">
+        <a href="report.html" class="navbar__link">Report</a>
+        <a href="track.html" class="navbar__link">Track</a>
+        <a href="evidence.html" class="navbar__link">Evidence</a>
+        <a href="map.html" class="navbar__link">Safety Map</a>
+        <a href="legal.html" class="navbar__link">Legal</a>
+        <a href="route.html" class="navbar__link navbar__link--active">Safe Route</a>
+        <a href="contacts.html" class="navbar__link">Contacts</a>
+        <a href="report.html" class="navbar__cta">File a Report</a>
+      </div>
+
+      <button class="navbar__hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="page-content">
+  <div class="container route-page">
+
+    <section class="page-header">
+      <h1>📍 Safe Route Finder</h1>
+      <p class="subtitle">Find the safest path — not the shortest. Dangerous zones are highlighted.</p>
+    </section>
+
+    <div class="card">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="fromInput">From</label>
+          <input id="fromInput" type="text" class="form-input" placeholder="Click on map or type coordinates" readonly />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="toInput">To</label>
+          <input id="toInput" type="text" class="form-input" placeholder="Click on map or type coordinates" readonly />
+        </div>
+      </div>
+      <p class="hint">Click the map to set <strong>From</strong>, then click again to set <strong>To</strong>.</p>
+      <button class="btn-primary" id="checkRouteBtn" onclick="checkRoute()" disabled>Check Route Safety</button>
+      <button class="btn-secondary" onclick="resetRoute()">Reset</button>
+    </div>
+
+    <!-- Map -->
+    <div id="routeMap"></div>
+
+    <!-- Result -->
+    <div id="routeResult" class="card hidden">
+      <h2>Route Safety Result</h2>
+      <div id="scoreDisplay"></div>
+      <div id="dangerList"></div>
+    </div>
+
+  </div>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/route.js"></script>
+</body>
+</html>

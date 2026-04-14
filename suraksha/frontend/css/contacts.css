@@ -1,0 +1,445 @@
+/* ============================================================
+   SURAKSHA — contacts.css
+   Page-specific styles for Trusted Contacts page
+   Theme: Dark editorial, safety amber/gold accents
+   ============================================================ */
+
+/* ─── Page Header Enhancement ────────────────────────────── */
+.contacts-page .page-header {
+  padding-block: var(--space-16) var(--space-12);
+  text-align: left;
+  position: relative;
+}
+
+.contacts-page .page-header h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-3);
+  background: linear-gradient(135deg, var(--clr-text) 0%, var(--clr-text-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.contacts-page .page-header .subtitle {
+  font-size: var(--text-md);
+  color: var(--clr-text-2);
+  max-width: 560px;
+  line-height: 1.7;
+}
+
+/* ─── Page Content Offset ───────────────────────────────── */
+.contacts-page {
+  padding-top: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* ─── Card Spacing ──────────────────────────────────────── */
+.contacts-page > .card {
+  padding: var(--space-8);
+}
+
+.contacts-page > .card > h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  color: var(--clr-text);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--clr-border);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.contacts-page > .card > h2::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background: var(--clr-accent-gradient);
+  border-radius: 1px;
+}
+
+.contacts-page > .card > p {
+  font-size: var(--text-sm);
+  color: var(--clr-text-2);
+  line-height: 1.7;
+  margin-bottom: var(--space-5);
+}
+
+/* ─── Emergency Numbers Card ────────────────────────────── */
+.emergency-card {
+  border: 1px solid rgba(239, 68, 68, 0.35) !important;
+  background: rgba(239, 68, 68, 0.04) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.emergency-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--clr-danger), #ff6b6b);
+  opacity: 0.6;
+}
+
+.emergency-card h2 {
+  color: #ef4444 !important;
+}
+
+.emergency-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.btn-danger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: var(--clr-danger-bg);
+  color: var(--clr-danger);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--r-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-danger::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(239,68,68,0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease);
+}
+
+.btn-danger:hover {
+  background: var(--clr-danger);
+  color: #fff;
+  border-color: var(--clr-danger);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px var(--clr-danger-glow), 0 0 40px rgba(239,68,68,0.1);
+}
+
+.btn-danger:hover::before {
+  opacity: 1;
+}
+
+.btn-danger:active {
+  transform: translateY(0);
+}
+
+/* ─── Offline SOS Card ──────────────────────────────────── */
+.offline-sos-card {
+  border: 1px solid rgba(245, 166, 35, 0.25) !important;
+}
+
+.offline-sos-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--clr-accent-dim), var(--clr-accent), var(--clr-accent-bright));
+  opacity: 0.4;
+}
+
+/* ─── Email SOS Card ────────────────────────────────────── */
+.email-sos-card {
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  background: rgba(59, 130, 246, 0.03) !important;
+}
+
+.email-sos-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  opacity: 0.4;
+}
+
+/* ─── Primary Button (used in contacts page) ────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--clr-accent-gradient);
+  color: var(--clr-text-inv);
+  border: 1px solid var(--clr-accent);
+  border-radius: var(--r-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease),
+    filter var(--dur-fast) var(--ease);
+  box-shadow: 0 2px 8px rgba(245, 166, 35, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.5s var(--ease);
+}
+
+.btn-primary:hover::before { left: 125%; }
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(245,166,35,0.35), 0 0 60px rgba(245,166,35,0.08);
+  filter: brightness(1.06);
+}
+
+.btn-primary:active { transform: translateY(0); }
+
+/* ─── Secondary Button ──────────────────────────────────── */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--clr-surface);
+  color: var(--clr-text);
+  border: 1px solid var(--clr-border-light);
+  border-radius: var(--r-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+  box-shadow: var(--shadow-inner);
+}
+
+.btn-secondary:hover {
+  background: var(--clr-surface-2);
+  border-color: var(--clr-text-3);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md), var(--shadow-inner);
+}
+
+/* ─── Form Inputs ───────────────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.form-label {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--clr-text);
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.form-input {
+  width: 100%;
+  background: var(--clr-bg-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--clr-text);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease);
+}
+
+.form-input::placeholder {
+  color: var(--clr-text-3);
+}
+
+.form-input:hover {
+  border-color: var(--clr-border-light);
+  background: var(--clr-bg-3);
+}
+
+.form-input:focus {
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 3px var(--clr-accent-glow), 0 0 16px rgba(245,166,35,0.08);
+  background: var(--clr-bg-3);
+}
+
+/* ─── Status Messages ───────────────────────────────────── */
+#offlineSMSStatus,
+#emailSOSStatus,
+#locationStatus {
+  font-size: var(--text-sm);
+  color: var(--clr-text-3);
+  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--r-sm);
+  transition: all var(--dur-fast) var(--ease);
+}
+
+/* ─── Contacts List ─────────────────────────────────────── */
+#contactsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+#contactsList .empty-state {
+  padding: var(--space-10) var(--space-6);
+  text-align: center;
+  color: var(--clr-text-3);
+  font-size: var(--text-sm);
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--clr-bg-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+  animation: fade-up 0.3s var(--ease-out) both;
+}
+
+.contact-item:hover {
+  border-color: var(--clr-border-light);
+  background: var(--clr-bg-3);
+  transform: translateX(4px);
+}
+
+/* ─── SOS Card ──────────────────────────────────────────── */
+.sos-card {
+  border: 1px solid rgba(239, 68, 68, 0.25) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.sos-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--clr-danger), var(--clr-warn), var(--clr-danger));
+  background-size: 200% 100%;
+  animation: sos-shimmer 3s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes sos-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.sos-card .hint {
+  font-size: var(--text-sm);
+  color: var(--clr-text-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--clr-bg-2);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--clr-border);
+}
+
+.sos-buttons {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
+
+/* ─── Hidden / Visible ──────────────────────────────────── */
+.hidden {
+  display: none !important;
+}
+
+/* ─── Responsive ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .contacts-page .page-header h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .contacts-page .page-header .subtitle {
+    font-size: var(--text-base);
+  }
+
+  .emergency-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contacts-page > .card {
+    padding: var(--space-5);
+  }
+}
+
+@media (max-width: 480px) {
+  .contacts-page .page-header {
+    padding-block: var(--space-10) var(--space-8);
+  }
+
+  .sos-buttons {
+    flex-direction: column;
+  }
+
+  .sos-buttons .btn-danger,
+  .sos-buttons .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}

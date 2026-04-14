@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "D:\\Python\\Avi.py\\suraksha\\contracts\\contracts\\EvidenceRegistry.sol": {
+      "lastModificationDate": 1774809163804,
+      "contentHash": "c53d46bbe0e3f6a88142dece217d89c9",
+      "sourceName": "contracts/EvidenceRegistry.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "EvidenceRegistry"
+      ]
+    }
+  }
+}

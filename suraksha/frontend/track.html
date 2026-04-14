@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Track Report — Suraksha</title>
+
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+
+  <style>
+    .track-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: var(--space-8);
+      align-items: start;
+    }
+
+    /* Token input card */
+    .token-card {
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--r-xl);
+      padding: var(--space-8);
+    }
+
+    /* Status timeline */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 28px;
+      bottom: 28px;
+      width: 2px;
+      background: var(--clr-border);
+      z-index: 0;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: var(--space-4);
+      position: relative;
+      z-index: 1;
+      padding-bottom: var(--space-6);
+    }
+
+    .timeline-item:last-child { padding-bottom: 0; }
+
+    .timeline-item__dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--clr-border);
+      background: var(--clr-bg-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      z-index: 2;
+      transition: all var(--dur-base) var(--ease);
+    }
+
+    .timeline-item--done .timeline-item__dot {
+      background: var(--clr-surface);
+      border-color: var(--clr-accent);
+    }
+
+    .timeline-item--active .timeline-item__dot {
+      background: var(--clr-accent);
+      border-color: var(--clr-accent);
+      box-shadow: 0 0 0 6px var(--clr-accent-glow);
+    }
+
+    .timeline-item--pending .timeline-item__dot {
+      opacity: 0.4;
+    }
+
+    .timeline-item__content { flex: 1; padding-top: var(--space-2); }
+
+    .timeline-item__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-1);
+    }
+
+    .timeline-item__title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--clr-text);
+    }
+
+    .timeline-item--pending .timeline-item__title { color: var(--clr-text-3); }
+
+    .timeline-item__time {
+      font-size: var(--text-xs);
+      color: var(--clr-text-3);
+    }
+
+    .timeline-item__desc {
+      font-size: var(--text-sm);
+      color: var(--clr-text-2);
+      line-height: 1.5;
+    }
+
+    .timeline-item__note {
+      margin-top: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      background: var(--clr-bg-2);
+      border-radius: var(--r-sm);
+      border-left: 3px solid var(--clr-accent);
+      font-size: var(--text-xs);
+      color: var(--clr-text-2);
+      line-height: 1.5;
+    }
+
+    /* Report detail card */
+    .detail-card {
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+    }
+
+    .detail-card__header {
+      padding: var(--space-6);
+      border-bottom: 1px solid var(--clr-border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    .detail-card__body {
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .detail-row {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .detail-row__label {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--clr-text-3);
+    }
+
+    .detail-row__value {
+      font-size: var(--text-sm);
+      color: var(--clr-text-2);
+      line-height: 1.5;
+    }
+
+    /* Empty state */
+    .track-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--space-16) var(--space-8);
+      gap: var(--space-4);
+    }
+
+    /* Sidebar tips */
+    .tips-card {
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--r-lg);
+      padding: var(--space-5);
+    }
+
+    .tips-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--clr-text);
+      margin-bottom: var(--space-4);
+    }
+
+    @media (max-width: 900px) {
+      .track-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="offline-banner" id="offlineBanner">
+    ⚡ You're offline — tracking requires an internet connection.
+  </div>
+
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__back" aria-label="Back to home" title="Back to Home">←</a>
+      <a href="index.html" class="navbar__logo">
+        <div class="navbar__logo-icon">S</div>
+        Suraksha
+      </a>
+      <div class="navbar__links" id="navLinks">
+        <a href="report.html" class="navbar__link">Report</a>
+        <a href="track.html" class="navbar__link navbar__link--active">Track</a>
+        <a href="evidence.html" class="navbar__link">Evidence</a>
+        <a href="map.html" class="navbar__link">Safety Map</a>
+        <a href="legal.html" class="navbar__link">Legal</a>
+        <a href="route.html" class="navbar__link">Safe Route</a>
+        <a href="contacts.html" class="navbar__link">Contacts</a>
+        <a href="report.html" class="navbar__cta">File a Report</a>
+      </div>
+      <button class="navbar__hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="page-content page-enter">
+    <div class="container section--sm">
+
+      <div class="page-header">
+        <div class="page-header__eyebrow">📍 Real-Time Status</div>
+        <h1 class="page-header__title">Track Your Report</h1>
+        <p class="page-header__sub">
+          Enter your private tracking token to see the current status and
+          full history of your complaint.
+        </p>
+      </div>
+
+      <!-- Token Input -->
+      <div class="token-card" style="margin-bottom: var(--space-8);">
+        <div style="display:flex; gap:var(--space-3); align-items:flex-end; flex-wrap:wrap;">
+          <div class="form__group" style="flex:1; min-width:240px; margin:0;">
+            <label class="form__label" for="tokenInput">Your tracking token</label>
+            <div class="input-wrapper">
+              <span class="input-wrapper__icon">🔑</span>
+              <input
+                type="text"
+                class="input"
+                id="tokenInput"
+                placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                autocomplete="off"
+                spellcheck="false"
+                style="font-family:'Courier New',monospace; font-size:var(--text-sm);"
+              />
+            </div>
+          </div>
+          <button class="btn btn--primary" id="trackBtn" style="flex-shrink:0;">
+            <span class="btn__text">🔍 Track Report</span>
+          </button>
+        </div>
+        <div class="form__hint" style="margin-top:var(--space-3);" id="tokenHint">
+          Your token was shown after you filed your report. Check your saved notes or browser localStorage.
+        </div>
+      </div>
+
+      <!-- Result area -->
+      <div id="resultArea"></div>
+
+    </div>
+  </main>
+
+  <!-- Result templates (filled by JS) -->
+  <template id="resultTemplate">
+    <div class="track-layout stagger">
+
+      <!-- Left: Timeline + Details -->
+      <div style="display:flex; flex-direction:column; gap:var(--space-6);">
+
+        <!-- Status card -->
+        <div class="detail-card">
+          <div class="detail-card__header">
+            <div>
+              <div style="font-size:var(--text-xs); color:var(--clr-text-3); text-transform:uppercase; letter-spacing:.08em; margin-bottom:var(--space-2);">
+                Current status
+              </div>
+              <div class="badge" id="tpl-status-badge">—</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:var(--text-xs); color:var(--clr-text-3); margin-bottom:var(--space-1);">Filed on</div>
+              <div style="font-size:var(--text-sm); font-weight:600; color:var(--clr-text);" id="tpl-filed-date">—</div>
+            </div>
+          </div>
+
+          <div class="detail-card__body">
+            <div class="form__row">
+              <div class="detail-row">
+                <div class="detail-row__label">Category</div>
+                <div class="detail-row__value" id="tpl-category">—</div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-row__label">Severity</div>
+                <div class="detail-row__value" id="tpl-severity">—</div>
+              </div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-row__label">Location</div>
+              <div class="detail-row__value" id="tpl-location">—</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-row__label">Description</div>
+              <div class="detail-row__value" id="tpl-description">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline card -->
+        <div class="detail-card">
+          <div style="padding:var(--space-6); border-bottom:1px solid var(--clr-border);">
+            <h3 style="font-size:var(--text-md); font-weight:700;">Status History</h3>
+          </div>
+          <div style="padding:var(--space-6);">
+            <div class="timeline" id="tpl-timeline">—</div>
+          </div>
+        </div>
+
+        <!-- Evidence link -->
+        <div class="alert alert--info">
+          <span class="alert__icon">🔐</span>
+          <span>
+            Strengthen your report by uploading evidence.
+            <a href="evidence.html" style="color:var(--clr-info); font-weight:600;">
+              Go to Evidence Locker →
+            </a>
+          </span>
+        </div>
+
+      </div>
+
+      <!-- Right: Sidebar -->
+      <aside style="display:flex; flex-direction:column; gap:var(--space-5);">
+
+        <div class="tips-card">
+          <div class="tips-card__title">🔄 Auto-refresh</div>
+          <p style="font-size:var(--text-xs); color:var(--clr-text-2); line-height:1.6; margin-bottom:var(--space-4);">
+            Status refreshes every 30 seconds automatically.
+          </p>
+          <div style="display:flex; align-items:center; gap:var(--space-2); font-size:var(--text-xs); color:var(--clr-text-3);">
+            <span class="status-dot status-dot--live"></span>
+            Last updated: <span id="tpl-last-updated">just now</span>
+          </div>
+        </div>
+
+        <div class="tips-card">
+          <div class="tips-card__title">📊 Status guide</div>
+          <div style="display:flex; flex-direction:column; gap:var(--space-3);">
+            <div style="display:flex; align-items:center; gap:var(--space-3);">
+              <span class="badge badge--info">Submitted</span>
+              <span style="font-size:var(--text-xs); color:var(--clr-text-3);">Received, awaiting review</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:var(--space-3);">
+              <span class="badge badge--warn">Under Review</span>
+              <span style="font-size:var(--text-xs); color:var(--clr-text-3);">Being assessed</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:var(--space-3);">
+              <span class="badge badge--danger">Escalated</span>
+              <span style="font-size:var(--text-xs); color:var(--clr-text-3);">Referred to authorities</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:var(--space-3);">
+              <span class="badge badge--safe">Resolved</span>
+              <span style="font-size:var(--text-xs); color:var(--clr-text-3);">Action taken / closed</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tips-card" style="border-color:rgba(245,166,35,0.2);">
+          <div class="tips-card__title" style="color:var(--clr-accent);">💡 Keep your token safe</div>
+          <p style="font-size:var(--text-xs); color:var(--clr-text-2); line-height:1.6;">
+            Your token is the only link to your report.
+            We cannot recover it for you. Save it in a secure note.
+          </p>
+        </div>
+
+      </aside>
+    </div>
+  </template>
+
+  <script src="js/app.js"></script>
+  <script src="js/track.js"></script>
+  <script src="js/offline.js"></script>
+
+</body>
+</html>

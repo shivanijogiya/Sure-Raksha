@@ -1,0 +1,425 @@
+/* ============================================================
+   SURAKSHA — route.css
+   Page-specific styles for Safe Route Finder page
+   Theme: Dark editorial, safety amber/gold accents
+   ============================================================ */
+
+/* ─── Page Header Enhancement ────────────────────────────── */
+.route-page .page-header {
+  padding-block: var(--space-16) var(--space-12);
+  text-align: left;
+  position: relative;
+}
+
+.route-page .page-header h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-3);
+  background: linear-gradient(135deg, var(--clr-text) 0%, var(--clr-text-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.route-page .page-header .subtitle {
+  font-size: var(--text-md);
+  color: var(--clr-text-2);
+  max-width: 560px;
+  line-height: 1.7;
+}
+
+/* ─── Route Form Card ───────────────────────────────────── */
+.route-page > .card {
+  margin-bottom: var(--space-6);
+  padding: var(--space-8);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.form-label {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--clr-text);
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.form-label::before {
+  content: '';
+  width: 3px;
+  height: 14px;
+  background: var(--clr-accent-gradient);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.form-input {
+  width: 100%;
+  background: var(--clr-bg-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--clr-text);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease);
+}
+
+.form-input::placeholder {
+  color: var(--clr-text-3);
+  transition: opacity var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.form-input:focus::placeholder {
+  opacity: 0.5;
+  transform: translateX(4px);
+}
+
+.form-input:hover {
+  border-color: var(--clr-border-light);
+  background: var(--clr-bg-3);
+}
+
+.form-input:focus {
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 3px var(--clr-accent-glow), 0 0 16px rgba(245, 166, 35, 0.08);
+  background: var(--clr-bg-3);
+}
+
+.form-input[readonly] {
+  cursor: default;
+  opacity: 0.8;
+}
+
+/* ─── Hint Text ─────────────────────────────────────────── */
+.hint {
+  font-size: var(--text-xs);
+  color: var(--clr-text-3);
+  line-height: 1.5;
+  margin-bottom: var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hint::before {
+  content: '💡';
+  flex-shrink: 0;
+}
+
+.hint strong {
+  color: var(--clr-accent);
+  font-weight: 600;
+}
+
+/* ─── Route Buttons ─────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--clr-accent-gradient);
+  color: var(--clr-text-inv);
+  border: 1px solid var(--clr-accent);
+  border-radius: var(--r-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease),
+    filter var(--dur-fast) var(--ease),
+    opacity var(--dur-fast) var(--ease);
+  box-shadow: 0 2px 8px rgba(245, 166, 35, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.5s var(--ease);
+}
+
+.btn-primary:hover::before {
+  left: 125%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(245, 166, 35, 0.35), 0 0 60px rgba(245, 166, 35, 0.08);
+  filter: brightness(1.06);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--clr-surface);
+  color: var(--clr-text);
+  border: 1px solid var(--clr-border-light);
+  border-radius: var(--r-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+  box-shadow: var(--shadow-inner);
+}
+
+.btn-secondary:hover {
+  background: var(--clr-surface-2);
+  border-color: var(--clr-text-3);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md), var(--shadow-inner);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* ─── Route Map Container ───────────────────────────────── */
+#routeMap {
+  height: 420px;
+  border-radius: var(--r-xl) !important;
+  margin-top: var(--space-6);
+  border: 1px solid var(--clr-border);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  transition: box-shadow var(--dur-base) var(--ease);
+}
+
+#routeMap:hover {
+  box-shadow: var(--shadow-xl);
+}
+
+/* Dark theme for Leaflet map tiles */
+.leaflet-container {
+  background: var(--clr-bg-2) !important;
+  font-family: var(--font-body) !important;
+}
+
+.leaflet-control-zoom a {
+  background: var(--clr-surface) !important;
+  color: var(--clr-text) !important;
+  border-color: var(--clr-border) !important;
+  transition: all var(--dur-fast) var(--ease);
+}
+
+.leaflet-control-zoom a:hover {
+  background: var(--clr-accent-bg) !important;
+  color: var(--clr-accent) !important;
+  border-color: var(--clr-accent-dim) !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: var(--clr-surface) !important;
+  color: var(--clr-text) !important;
+  border: 1px solid var(--clr-border) !important;
+  border-radius: var(--r-md) !important;
+  box-shadow: var(--shadow-xl) !important;
+  font-family: var(--font-body) !important;
+}
+
+.leaflet-popup-tip {
+  background: var(--clr-surface) !important;
+  border: 1px solid var(--clr-border) !important;
+}
+
+.leaflet-popup-close-button {
+  color: var(--clr-text-2) !important;
+}
+
+/* ─── Route Result Card ─────────────────────────────────── */
+#routeResult {
+  margin-top: var(--space-6);
+  animation: fade-up var(--dur-slow) var(--ease-out) both;
+  padding: var(--space-8);
+}
+
+#routeResult h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--clr-text);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--clr-border);
+  position: relative;
+}
+
+#routeResult h2::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--clr-accent-gradient);
+  border-radius: 1px;
+}
+
+/* ─── Safety Score Display ──────────────────────────────── */
+#scoreDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--clr-bg-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-xl);
+  margin-bottom: var(--space-6);
+  position: relative;
+  overflow: hidden;
+}
+
+#scoreDisplay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--clr-safe), var(--clr-accent), var(--clr-danger));
+  opacity: 0.5;
+}
+
+/* ─── Danger Zone List ──────────────────────────────────── */
+#dangerList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+#dangerList > div,
+.danger-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--clr-danger-bg);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--r-md);
+  font-size: var(--text-sm);
+  color: var(--clr-text-2);
+  line-height: 1.6;
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+#dangerList > div::before,
+.danger-item::before {
+  content: '⚠️';
+  flex-shrink: 0;
+  font-size: 1.1rem;
+}
+
+#dangerList > div:hover,
+.danger-item:hover {
+  border-color: rgba(239, 68, 68, 0.4);
+  transform: translateX(4px);
+}
+
+/* ─── Hidden / Visible ──────────────────────────────────── */
+.hidden {
+  display: none !important;
+}
+
+/* ─── Page Content Offset ───────────────────────────────── */
+.route-page {
+  padding-top: var(--space-8);
+}
+
+/* ─── Responsive ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .route-page .page-header h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .route-page .page-header .subtitle {
+    font-size: var(--text-base);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  #routeMap {
+    height: 320px;
+  }
+
+  #routeResult {
+    padding: var(--space-5);
+  }
+
+  #routeResult h2 {
+    font-size: var(--text-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .route-page .page-header {
+    padding-block: var(--space-10) var(--space-8);
+  }
+
+  #routeMap {
+    height: 260px;
+    border-radius: var(--r-lg) !important;
+  }
+
+  .route-page > .card {
+    padding: var(--space-5);
+  }
+}

@@ -1,0 +1,728 @@
+/* ============================================================
+   SURAKSHA — animations.css
+   Page transitions, micro-interactions, skeleton loaders,
+   pulse effects, progress animations, scroll reveals,
+   particle effects, aurora backgrounds
+   Enhanced: God-level animation system
+   ============================================================ */
+
+/* ─── Page Load Sequence ─────────────────────────────────── */
+.page-enter {
+  animation: page-enter 0.5s var(--ease-out) both;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Staggered children on page load */
+.stagger > * {
+  animation: fade-up 0.5s var(--ease-out) both;
+}
+.stagger > *:nth-child(1)  { animation-delay: 0ms; }
+.stagger > *:nth-child(2)  { animation-delay: 80ms; }
+.stagger > *:nth-child(3)  { animation-delay: 160ms; }
+.stagger > *:nth-child(4)  { animation-delay: 240ms; }
+.stagger > *:nth-child(5)  { animation-delay: 320ms; }
+.stagger > *:nth-child(6)  { animation-delay: 400ms; }
+.stagger > *:nth-child(7)  { animation-delay: 480ms; }
+.stagger > *:nth-child(8)  { animation-delay: 560ms; }
+.stagger > *:nth-child(9)  { animation-delay: 640ms; }
+.stagger > *:nth-child(10) { animation-delay: 720ms; }
+.stagger > *:nth-child(11) { animation-delay: 800ms; }
+.stagger > *:nth-child(12) { animation-delay: 880ms; }
+
+/* Faster stagger */
+.stagger--fast > * {
+  animation: fade-up 0.35s var(--ease-out) both;
+}
+.stagger--fast > *:nth-child(1)  { animation-delay: 0ms; }
+.stagger--fast > *:nth-child(2)  { animation-delay: 50ms; }
+.stagger--fast > *:nth-child(3)  { animation-delay: 100ms; }
+.stagger--fast > *:nth-child(4)  { animation-delay: 150ms; }
+.stagger--fast > *:nth-child(5)  { animation-delay: 200ms; }
+.stagger--fast > *:nth-child(6)  { animation-delay: 250ms; }
+.stagger--fast > *:nth-child(7)  { animation-delay: 300ms; }
+.stagger--fast > *:nth-child(8)  { animation-delay: 350ms; }
+
+/* ─── Scroll Reveal ──────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s var(--ease-out),
+              transform 0.6s var(--ease-out);
+}
+
+.reveal--left {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity 0.6s var(--ease-out),
+              transform 0.6s var(--ease-out);
+}
+
+.reveal--right {
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity 0.6s var(--ease-out),
+              transform 0.6s var(--ease-out);
+}
+
+.reveal--scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.6s var(--ease-out),
+              transform 0.6s var(--ease-out);
+}
+
+.reveal.visible,
+.reveal--left.visible,
+.reveal--right.visible,
+.reveal--scale.visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+/* ─── Skeleton Loader ────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--clr-surface)   0%,
+    var(--clr-surface-2) 40%,
+    var(--clr-surface-3, var(--clr-surface-2)) 50%,
+    var(--clr-surface-2) 60%,
+    var(--clr-surface)   100%
+  );
+  background-size: 600px 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+  border-radius: var(--r-sm);
+  color: transparent !important;
+  pointer-events: none;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Extra shine layer */
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent);
+  pointer-events: none;
+}
+
+.skeleton--text  { height: 14px; border-radius: var(--r-full); width: 80%; }
+.skeleton--title { height: 24px; border-radius: var(--r-full); width: 60%; }
+.skeleton--card  { height: 120px; border-radius: var(--r-lg); }
+.skeleton--avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.skeleton--btn {
+  height: 40px;
+  width: 120px;
+  border-radius: var(--r-md);
+}
+.skeleton--circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+/* Skeleton block layout */
+.skeleton-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-lg);
+}
+
+/* ─── Pulse / Glow ───────────────────────────────────────── */
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: 0.6; }
+  70%  { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.pulse-dot {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulse-dot::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* Status indicator with pulse */
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.status-dot--live {
+  background: var(--clr-safe);
+  box-shadow: 0 0 0 0 rgba(34,197,94,0.4);
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+.status-dot--pending {
+  background: var(--clr-warn);
+  box-shadow: 0 0 0 0 rgba(245,158,11,0.4);
+  animation: status-pulse-warn 2s ease-in-out infinite;
+}
+
+.status-dot--danger {
+  background: var(--clr-danger);
+  box-shadow: 0 0 0 0 rgba(239,68,68,0.4);
+  animation: status-pulse-danger 2s ease-in-out infinite;
+}
+
+.status-dot--closed { background: var(--clr-text-3); }
+
+@keyframes status-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+  70%  { box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+  100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+}
+
+@keyframes status-pulse-warn {
+  0%   { box-shadow: 0 0 0 0 rgba(245,158,11,0.4); }
+  70%  { box-shadow: 0 0 0 8px rgba(245,158,11,0); }
+  100% { box-shadow: 0 0 0 0 rgba(245,158,11,0); }
+}
+
+@keyframes status-pulse-danger {
+  0%   { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+  70%  { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
+  100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
+}
+
+/* ─── Breathing Glow Effect ─────────────────────────────── */
+@keyframes breathe-glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(245, 166, 35, 0.15), 0 0 30px rgba(245, 166, 35, 0.05); }
+  50%      { box-shadow: 0 0 25px rgba(245, 166, 35, 0.25), 0 0 50px rgba(245, 166, 35, 0.1); }
+}
+
+.breathe {
+  animation: breathe-glow 3s ease-in-out infinite;
+}
+
+@keyframes breathe-safe {
+  0%, 100% { box-shadow: 0 0 15px var(--clr-safe-glow); }
+  50%      { box-shadow: 0 0 30px var(--clr-safe-glow), 0 0 60px rgba(34, 197, 94, 0.08); }
+}
+
+.breathe--safe { animation: breathe-safe 3s ease-in-out infinite; }
+
+@keyframes breathe-danger {
+  0%, 100% { box-shadow: 0 0 15px var(--clr-danger-glow); }
+  50%      { box-shadow: 0 0 30px var(--clr-danger-glow), 0 0 60px rgba(239, 68, 68, 0.08); }
+}
+
+.breathe--danger { animation: breathe-danger 3s ease-in-out infinite; }
+
+/* ─── Progress Upload Animation ──────────────────────────── */
+@keyframes progress-stripe {
+  0%   { background-position: 0 0; }
+  100% { background-position: 40px 0; }
+}
+
+.progress__bar--uploading {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10px,
+    rgba(255,255,255,0.08) 10px,
+    rgba(255,255,255,0.08) 20px
+  );
+  background-size: 40px 40px;
+  animation: progress-stripe 0.8s linear infinite;
+}
+
+/* ─── Hash Computing Animation ───────────────────────────── */
+@keyframes hash-scan {
+  0%   { width: 0%; }
+  100% { width: 100%; }
+}
+
+.hash-scanning {
+  position: relative;
+  overflow: hidden;
+}
+
+.hash-scanning::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(245,166,35,0.15),
+    transparent
+  );
+  animation: hash-scan 1.5s var(--ease) infinite;
+}
+
+/* ─── Blockchain Confirm Animation ───────────────────────── */
+@keyframes chain-link {
+  0%   { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+  60%  { transform: scale(1.15) rotate(3deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+.chain-confirm {
+  animation: chain-link 0.6s var(--ease-out) both;
+}
+
+/* ─── Map Marker Bounce ──────────────────────────────────── */
+@keyframes marker-drop {
+  0%   { transform: translateY(-20px); opacity: 0; }
+  60%  { transform: translateY(4px); }
+  80%  { transform: translateY(-2px); }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.marker-enter {
+  animation: marker-drop 0.5s var(--ease-out) both;
+}
+
+/* ─── Form Submit Success ─────────────────────────────────── */
+@keyframes checkmark-draw {
+  0%   { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes circle-draw {
+  0%   { stroke-dashoffset: 283; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-icon svg .circle {
+  stroke: var(--clr-safe);
+  stroke-dasharray: 283;
+  stroke-dashoffset: 283;
+  animation: circle-draw 0.6s var(--ease-out) 0.1s both;
+}
+
+.success-icon svg .check {
+  stroke: var(--clr-safe);
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: checkmark-draw 0.4s var(--ease-out) 0.7s both;
+}
+
+/* Success confetti burst */
+@keyframes confetti-burst {
+  0%   { transform: scale(0); opacity: 1; }
+  50%  { opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.success-icon::after {
+  content: '';
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(34,197,94,0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: confetti-burst 0.8s var(--ease-out) 0.5s both;
+}
+
+/* ─── Notification Slide-In ──────────────────────────────── */
+@keyframes notif-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%) scale(0.9);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes notif-out {
+  from { opacity: 1; transform: translateX(0); max-height: 100px; margin-bottom: var(--space-3); }
+  to   { opacity: 0; transform: translateX(100%); max-height: 0; margin-bottom: 0; }
+}
+
+.toast { animation: notif-in 0.4s var(--ease-spring) both; }
+.toast--leaving { animation: notif-out 0.3s var(--ease) both; }
+
+/* ─── Score Counter ──────────────────────────────────────── */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.score-value {
+  animation: count-up 0.5s var(--ease-out) 0.3s both;
+}
+
+/* Number roll effect */
+@keyframes digit-roll {
+  0%   { transform: translateY(100%); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.digit-roll {
+  display: inline-block;
+  animation: digit-roll 0.6s var(--ease-out) both;
+}
+
+.digit-roll:nth-child(1) { animation-delay: 0.1s; }
+.digit-roll:nth-child(2) { animation-delay: 0.15s; }
+.digit-roll:nth-child(3) { animation-delay: 0.2s; }
+.digit-roll:nth-child(4) { animation-delay: 0.25s; }
+.digit-roll:nth-child(5) { animation-delay: 0.3s; }
+
+/* ─── Card Hover Lift ─────────────────────────────────────── */
+.card-lift {
+  transition:
+    transform   var(--dur-base) var(--ease),
+    box-shadow  var(--dur-base) var(--ease),
+    border-color var(--dur-base) var(--ease);
+}
+
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5), var(--shadow-inner);
+}
+
+/* ─── Magnetic Hover ─────────────────────────────────────── */
+.magnetic {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+/* ─── Tilt 3D effect (use with JS for mouse tracking) ────── */
+.tilt-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.tilt-3d:hover {
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+}
+
+.tilt-3d__inner {
+  transform: translateZ(20px);
+  transition: transform var(--dur-base) var(--ease);
+}
+
+/* ─── Text Shimmer ───────────────────────────────────────── */
+@keyframes text-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--clr-text) 0%,
+    var(--clr-accent) 25%,
+    var(--clr-accent-bright) 50%,
+    var(--clr-accent) 75%,
+    var(--clr-text) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer 4s linear infinite;
+}
+
+/* ─── Typewriter Cursor ──────────────────────────────────── */
+@keyframes blink-cursor {
+  0%, 100% { border-color: var(--clr-accent); }
+  50%      { border-color: transparent; }
+}
+
+.typewriter-cursor {
+  border-right: 2px solid var(--clr-accent);
+  padding-right: 2px;
+  animation: blink-cursor 1s step-end infinite;
+}
+
+/* ─── Aurora Background ──────────────────────────────────── */
+@keyframes aurora {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  25%  { transform: translate(10%, 5%) rotate(90deg); }
+  50%  { transform: translate(-5%, 10%) rotate(180deg); }
+  75%  { transform: translate(-10%, -5%) rotate(270deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+.aurora-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.aurora-bg::before,
+.aurora-bg::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aurora-bg::before {
+  top: -200px;
+  right: -100px;
+  background: var(--clr-accent);
+  animation: aurora 20s ease-in-out infinite;
+}
+
+.aurora-bg::after {
+  bottom: -200px;
+  left: -100px;
+  background: var(--clr-info);
+  animation: aurora 25s ease-in-out infinite reverse;
+}
+
+/* ─── Floating Particles ─────────────────────────────────── */
+@keyframes float-up {
+  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(20px) scale(0.5); opacity: 0; }
+}
+
+@keyframes float-drift {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  25%      { transform: translateX(10px) translateY(-8px); }
+  50%      { transform: translateX(-5px) translateY(-16px); }
+  75%      { transform: translateX(8px) translateY(-8px); }
+}
+
+.float-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--clr-accent);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  animation: float-up 8s ease-in-out infinite;
+}
+
+.float-particle:nth-child(2) { animation-delay: 2s; left: 20%; width: 3px; height: 3px; }
+.float-particle:nth-child(3) { animation-delay: 4s; left: 40%; width: 5px; height: 5px; }
+.float-particle:nth-child(4) { animation-delay: 6s; left: 60%; width: 2px; height: 2px; }
+.float-particle:nth-child(5) { animation-delay: 1s; left: 80%; width: 4px; height: 4px; }
+
+/* ─── Heatmap Ripple ─────────────────────────────────────── */
+@keyframes ripple-out {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+.map-ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: ripple-out 1.5s ease-out forwards;
+}
+
+/* ─── Offline Bounce ─────────────────────────────────────── */
+@keyframes bounce-in {
+  0%   { transform: translateY(-100%); }
+  60%  { transform: translateY(4px); }
+  80%  { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+
+.offline-banner.visible {
+  animation: bounce-in 0.5s var(--ease-out) both;
+}
+
+/* ─── Counter Animation ─────────────────────────────────── */
+@keyframes counter-pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.counter-pop {
+  animation: counter-pop 0.3s var(--ease-spring);
+}
+
+/* ─── Slide-Up Enter ─────────────────────────────────────── */
+@keyframes slide-up-enter {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up-enter {
+  animation: slide-up-enter 0.4s var(--ease-out) both;
+}
+
+/* ─── Gradient Border Spin ───────────────────────────────── */
+@keyframes gradient-border-spin {
+  0%   { --border-angle: 0deg; }
+  100% { --border-angle: 360deg; }
+}
+
+/* ─── Blur-In Entry ──────────────────────────────────────── */
+@keyframes blur-in {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+.blur-in {
+  animation: blur-in 0.5s var(--ease-out) both;
+}
+
+/* ─── Shake (for errors/attention) ───────────────────────── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+.shake {
+  animation: shake 0.5s var(--ease);
+}
+
+/* ─── Glow Pulse (for important CTAs) ───────────────────── */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(245, 166, 35, 0.2), 0 0 20px rgba(245, 166, 35, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(245, 166, 35, 0.4), 0 0 40px rgba(245, 166, 35, 0.2), 0 0 60px rgba(245, 166, 35, 0.1);
+  }
+}
+
+.glow-pulse {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+
+/* ─── Marquee / Ticker ───────────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee__inner {
+  display: inline-flex;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee:hover .marquee__inner {
+  animation-play-state: paused;
+}
+
+/* ─── Reduced Motion Override ────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .stagger > *,
+  .stagger--fast > *,
+  .skeleton,
+  .pulse-dot::before,
+  .status-dot--live,
+  .status-dot--pending,
+  .status-dot--danger,
+  .progress__bar--uploading,
+  .hash-scanning::after,
+  .marker-enter,
+  .toast,
+  .toast--leaving,
+  .offline-banner.visible,
+  .breathe,
+  .breathe--safe,
+  .breathe--danger,
+  .text-shimmer,
+  .aurora-bg::before,
+  .aurora-bg::after,
+  .float-particle,
+  .glow-pulse,
+  .typewriter-cursor,
+  .blur-in,
+  .reveal,
+  .reveal--left,
+  .reveal--right,
+  .reveal--scale {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .reveal,
+  .reveal--left,
+  .reveal--right,
+  .reveal--scale {
+    opacity: 1;
+    transform: none;
+  }
+
+  .card-lift:hover {
+    transform: none;
+  }
+}
