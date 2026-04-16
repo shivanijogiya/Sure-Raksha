@@ -6,7 +6,7 @@
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 suraksha/
