@@ -1,8 +1,8 @@
 #  Suraksha — Unified Safety & Trust Platform
 
-> Anonymous incident reporting + real-time urban safety intelligence + women-centric legal tools.
-> Stack: MongoDB · Express.js · Node.js · Plain HTML/CSS/JS (no React)
-> Built for GDG WTF'26 — VIT Vellore.
+ Anonymous incident reporting + real-time urban safety intelligence + women-centric legal tools.
+Stack: MongoDB · Express.js · Node.js · Plain HTML/CSS/JS (no React)
+Built for GDG WTF'26 — VIT Vellore.
 
 ---
 
