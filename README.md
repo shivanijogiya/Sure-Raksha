@@ -83,7 +83,7 @@ suraksha/
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
 | Layer | Tool | Why | Cost |
 |---|---|---|---|
