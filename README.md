@@ -162,7 +162,7 @@ const TrustedContactSchema = new mongoose.Schema({
 
 ---
 
-## 📡 API Endpoints
+## API Endpoints
 
 ```
 # Complaints
