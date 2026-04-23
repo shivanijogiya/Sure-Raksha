@@ -101,7 +101,7 @@ suraksha/
 
 ---
 
-## 🗄️ MongoDB Schemas (Mongoose)
+##  MongoDB Schemas (Mongoose)
 
 ### Complaint.js ← EDITED
 ```js
