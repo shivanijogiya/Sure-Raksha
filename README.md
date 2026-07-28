@@ -6,7 +6,7 @@ Built for GDG WTF'26 — VIT Vellore.
 
 ---
 
-## Project Structure
+## Project Structure:
 
 ```
 suraksha/
