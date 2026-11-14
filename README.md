@@ -308,4 +308,3 @@ npx serve .
 
 ---
 
-> MIT License · GDG WTF'26 · VIT Vellore
