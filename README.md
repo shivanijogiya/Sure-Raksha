@@ -2,7 +2,6 @@
 
  Anonymous incident reporting + real-time urban safety intelligence + women-centric legal tools.
 Stack: MongoDB · Express.js · Node.js · Plain HTML/CSS/JS 
-Built for GDG WTF'26 — VIT Vellore.
 
 ---
 
